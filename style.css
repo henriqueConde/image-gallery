@@ -49,6 +49,8 @@ button {
     transform: translate(-50%, -50%);
     max-width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .modal__button--close {
@@ -62,6 +64,12 @@ button {
     max-width: 100%;
     height: auto;
     align-self: center;
+}
+
+.modal__img__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .arrow {
