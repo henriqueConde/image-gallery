@@ -84,11 +84,9 @@ const createGalleryImgs = () => {
         const galleryImageButton = createEl('button', {
             className: 'gallery__button',
         }, {
-            keyup: function(event) {
-                if(event.code === 'Enter') {
-                    return renderModal(galleryImage);
-                }
-            },
+            click: function() {
+                return renderModal(galleryImage);
+            } 
         });
 
         const galleryContainer = document.querySelector('.gallery');
@@ -173,7 +171,6 @@ const moveLeft = () => {
 }
 
 const moveRight = () => {
-    console.log('Called right arrow');
     const openImg = document.querySelector('.modal__img');
     const prevImgIndex = parseInt(openImg.dataset.imgIndex) + 1;
     toggleArrows(prevImgIndex);

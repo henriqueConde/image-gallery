@@ -3,6 +3,21 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-dark-color: color: rgb(35, 35, 35);
+    --primary-background-color: #C4C4C4;
+    --spacer-border-radius-sm: 10px;
+    --spacer-padding-sm: 10px;
+    --box-shadow-dark-right: 2px 2px 15px 1px rgba(20,20,20,0.4);
+    --box-shadow-dark-left: -2px 2px 15px 1px rgba(20,20,20,0.4);
+}
+
+body {
+    margin: 0;
+    padding: var(--spacer-padding-sm);
+    background-color: var(--primary-background-color);
+}
+
 #app {
     position: relative;
 }
@@ -21,18 +36,18 @@ button {
     border: none;
     padding: 0;
     margin: 0;
-    border-radius: 10px;
+    border-radius: var(--spacer-border-radius-sm);
     overflow: hidden;
 }
 
 .gallery__button:hover {
-    border: 3px solid black;
+    border: 3px solid var(--primary-dark-color);
 }
 
 .gallery__image {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: var(--spacer-border-radius-sm);
     transition: all .5s;
 }
 
@@ -61,6 +76,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: var(--spacer-padding-sm);
 }
 
 .modal__button--close {
@@ -72,13 +88,13 @@ button {
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    box-shadow: 2px 2px 15px 1px rgba(20,20,20,0.4);
+    box-shadow: var(--box-shadow-dark-right);
 }
 
 .modal__button--close:after{
     display: inline-block;
     font-size: 35px;
-    color: rgb(35, 35, 35);
+    color: var(--primary-dark-color);
     content: "\00d7";
 }
 
@@ -86,7 +102,7 @@ button {
     max-width: 100%;
     height: auto;
     align-self: center;
-    border-radius: 10px;
+    border-radius: var(--spacer-border-radius-sm);
 }
 
 .modal__img__container {
@@ -120,7 +136,7 @@ button {
     top: 50%;
     width: 0;
     color: #fff;
-    box-shadow: 2px 2px 15px 1px rgba(20,20,20,0.4);
+    box-shadow:  var(--box-shadow-dark-right);
 }
 
 .arrow--right::after {
@@ -148,7 +164,7 @@ button {
     top: 50%;
     width: 0;
     color: #fff;
-    box-shadow: -2px 2px 15px 1px rgba(20,20,20,0.4);
+    box-shadow: var(--box-shadow-dark-left);
 }
 
 .arrow--left::after {
@@ -168,12 +184,14 @@ button {
 .arrow::after,
 .arrow::before {
     transition: all .2s;
+    opacity: .5;
 }
 
 .arrow:hover::after,
 .arrow:hover::before {
     transition: all .2s;
     height: 30px;
+    opacity: 1;
 }
 
 .arrow:hover::before {
@@ -215,9 +233,14 @@ button {
     }
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 960px) {
     .gallery {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .arrow:after,
+    .arrow:before {
+        opacity: 1;
     }
 }
