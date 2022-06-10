@@ -113,7 +113,6 @@ const renderModal = (el) => {
     
         const closeModalBtn = createEl ('button', {
             className: 'modal__button--close',
-            textContent: 'Close'
         }, {
             click: removeModal,
         });
