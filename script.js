@@ -111,8 +111,6 @@ const renderModal = (el) => {
     
         const closeModalBtn = createEl ('button', {
             className: 'modal__button--close',
-        }, {
-            click: removeModal,
         });
 
         const imgContainer = createEl('div', {
@@ -138,7 +136,7 @@ const renderModal = (el) => {
     }
 }
 
-const renderArrows = (modalContainer, curIndex) => {
+const renderArrows = modalContainer => {
     const rightArrow = createEl('button', {
         className: 'arrow arrow--right'
     },
@@ -155,50 +153,33 @@ const renderArrows = (modalContainer, curIndex) => {
 
     modalContainer.appendChild(rightArrow);
     modalContainer.appendChild(leftArrow);
-
-    toggleArrows(parseInt(curIndex));
 }
 
 const moveLeft = () => {
     const openImg = document.querySelector('.modal__img');
     const nextImgIndex = parseInt(openImg.dataset.imgIndex) - 1;
-    toggleArrows(nextImgIndex);
     if(nextImgIndex >= 0) {
         openImg.src = IMAGES[nextImgIndex].src;
         openImg.alt = IMAGES[nextImgIndex].alt;
         openImg.dataset.imgIndex--;
-    } 
+    } else {
+        openImg.src = IMAGES[IMAGES.length - 1].src;
+        openImg.alt = IMAGES[IMAGES.length - 1].alt;
+        openImg.dataset.imgIndex = IMAGES.length - 1;
+    }
 }
 
 const moveRight = () => {
     const openImg = document.querySelector('.modal__img');
     const prevImgIndex = parseInt(openImg.dataset.imgIndex) + 1;
-    toggleArrows(prevImgIndex);
-    openImg.src = IMAGES[prevImgIndex].src;
-    openImg.alt = IMAGES[prevImgIndex].alt;
-    openImg.dataset.imgIndex++;
-}
-
-const toggleArrows = nextImgIndex => {
-    const leftArrow = document.querySelector('.arrow--left');
-    const rightArrow = document.querySelector('.arrow--right');
-
-    if(nextImgIndex === 0) {
-        leftArrow.classList.add('hidden');
-        return;
-    }
-
-    if(nextImgIndex === IMAGES.length - 1) {
-        rightArrow.classList.add('hidden');
-        return;
-    }
-
-    if(leftArrow.classList.contains('hidden')) {
-        leftArrow.classList.remove('hidden');
-    }
-
-    if(rightArrow.classList.contains('hidden')) {
-        rightArrow.classList.remove('hidden');
+    if(prevImgIndex <= IMAGES.length - 1) {
+        openImg.src = IMAGES[prevImgIndex].src;
+        openImg.alt = IMAGES[prevImgIndex].alt;
+        openImg.dataset.imgIndex++;
+    } else {
+        openImg.src = IMAGES[0].src;
+        openImg.alt = IMAGES[0].alt;
+        openImg.dataset.imgIndex = 0;
     }
 }
 
@@ -207,8 +188,7 @@ const removeModal = ({ target }) => {
     const isArrow = target.classList.contains('arrow');
     if(!isModalImg && !isArrow) {
         const modalContainer = document.querySelector('.modal-container');
-        // why do I need to use optional chaning to avoid error when clicking close btn?
-        modalContainer?.remove();
+        modalContainer.remove();
         enableGalleryTabNavigaton();
     }
 }
