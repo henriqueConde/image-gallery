@@ -102,7 +102,13 @@ const renderModal = (el) => {
         const modalContainer = createEl('div', {
             className: 'modal-container'
         }, {
-            click: removeModal,
+            click: function({ target }) {
+                const isModalImg = target.classList.contains('modal__img');
+                const isArrow = target.classList.contains('arrow');
+                if (!isModalImg & !isArrow) {
+                    removeModal();
+                }
+            },
         });
     
         const modal = createEl('div', {
@@ -183,14 +189,10 @@ const moveRight = () => {
     }
 }
 
-const removeModal = ({ target }) => {
-    const isModalImg = target.classList.contains('modal__img');
-    const isArrow = target.classList.contains('arrow');
-    if(!isModalImg && !isArrow) {
-        const modalContainer = document.querySelector('.modal-container');
-        modalContainer.remove();
-        enableGalleryTabNavigaton();
-    }
+const removeModal = () => {
+    const modalContainer = document.querySelector('.modal-container');
+    modalContainer.remove();
+    enableGalleryTabNavigaton();
 }
 
 const disableGalleryTabNavigaton = () => {
@@ -206,6 +208,11 @@ const enableGalleryTabNavigaton = () => {
 const init = () => {
     createGalleryContainer();
     createGalleryImgs();
+    document.addEventListener('keyup', event => {
+        if(event.code === 'Escape') {
+            removeModal();
+        }
+    })
 };
 
 init();
